@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ContentModelStore">
-    <e p="$PROJECT_DIR$" t="IncludeRecursive">
+    <e p="C:\Users\stink\.Rider2018.2\system\extResources" t="IncludeRecursive" />
+    <e p="C:\Users\stink\.Rider2018.2\system\resharper-host\local\Transient\ReSharperHost\v182\SolutionCaches\_Jousting_Git.-2058240330.00" t="ExcludeRecursive" />
+    <e p="D:\Documents\Unity Projects\Jousting" t="IncludeRecursive">
       <e p="Assembly-CSharp-Editor-firstpass.csproj" t="IncludeRecursive" />
       <e p="Assembly-CSharp-firstpass.csproj" t="IncludeRecursive" />
       <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
@@ -292,7 +294,5 @@
         <e p="bin" t="ExcludeRecursive" />
       </e>
     </e>
-    <e p="$USER_HOME$/Library/Caches/Rider2018.2/extResources" t="IncludeRecursive" />
-    <e p="$USER_HOME$/Library/Caches/Rider2018.2/resharper-host/local/Transient/ReSharperHost/v182/SolutionCaches/_Jousting_Git.-14855658.00" t="ExcludeRecursive" />
   </component>
 </project>
