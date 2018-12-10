@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using TMPro;
 using UnityEngine;
 
@@ -15,13 +16,16 @@ public class SpringObject : MonoBehaviour
 
 	public float forceMax;
 	public bool clampForce;
-	
+	private float timeScale;
 	private bool mouseEnabled; //If our object is already launched, we don't want to check anymore
+
+	public Renderer[] renderers;
 	
 	// Use this for initialization
 	void Start () {
 		rb = GetComponent<Rigidbody2D>(); //Assign Body
 		mouseEnabled = true;
+		timeScale = Time.timeScale;
 	}
 	
 	// Update is called once per frame
@@ -45,11 +49,13 @@ public class SpringObject : MonoBehaviour
 			var mainCamera = FindCamera(); //Get our camera so we can get our relative position
 			var ray = mainCamera.ScreenPointToRay(Input.mousePosition);	//Shoot a laser at the object relative to the camera
 			Vector2 mousePosRel = new Vector2(ray.GetPoint(rb.position.x).x, rb.position.y); //New position based on local positioning
-			rb.MovePosition(mousePosRel);
-		}
+			transform.position = mousePosRel;
+			Time.timeScale = 0;
+			Color tint = new Color(1.0f,0,0,calcforce(startX - mousePosRel.x)/forceMax);
+			foreach (Renderer renderer in renderers)
+				renderer.material.color = tint;
 
-		
-		
+		}
 	}
 	//When we release the mouse, we calculate spring force and launch our object! But let's put that in a different method
 	void OnMouseUp()
@@ -60,6 +66,7 @@ public class SpringObject : MonoBehaviour
 			var ray = mainCamera.ScreenPointToRay(Input.mousePosition);	//Shoot a laser at the object relative to the camera
 			Vector2 mousePosRel = new Vector2(ray.GetPoint(transform.position.x).x, transform.position.y); //New position based on local positioning
 			SpringRelease(mousePosRel.x);
+			Time.timeScale = timeScale;
 			//mouseEnabled = false; //Disable the mouse
 		}
 				
@@ -69,7 +76,7 @@ public class SpringObject : MonoBehaviour
 	private void SpringRelease(float mouseX)
 	{
 		float x = startX - mouseX; //Calculate our distance
-		float f = x * k * rb.mass; //Force equals negative distance multiplied by spring constant. Hope you paid attention in physics!
+		float f = calcforce(x); //Force equals negative distance multiplied by spring constant. Hope you paid attention in physics!
 		Debug.Log(f);
 		if(clampForce)
 			f = Mathf.Clamp(f, 0f, forceMax);
@@ -86,5 +93,11 @@ public class SpringObject : MonoBehaviour
 		}
 
 		return Camera.main;
+	}
+
+	private float calcforce(float x)
+	{
+		float f = x * k * rb.mass;
+		return f;
 	}
 }

@@ -28,7 +28,7 @@ public class PoleVault : MonoBehaviour {
 		if (other.gameObject.CompareTag("wall")) //Did we touch wall
 		{
 			float f = GetKineticEnergy();
-			charRb.AddForce(new Vector2(0f, f * forceMod));
+			charRb.AddForce(new Vector2(-5f, f * forceMod));
 			StartCoroutine(Bend());
 		}
 	}
@@ -42,7 +42,7 @@ public class PoleVault : MonoBehaviour {
 	{
 		rb.isKinematic = true;
 		
-		yield return new WaitForSeconds(0.1f);
+		yield return new WaitForSeconds(0.2f);
 
 		rb.isKinematic = false;
 		//collider.enabled = false;
